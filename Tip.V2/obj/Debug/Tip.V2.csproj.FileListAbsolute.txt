@@ -1,0 +1,22 @@
+\\Mac\Home\Desktop\Conestoga College\Tip.V2\Tip.V2\bin\Debug\Tip.V2.exe.config
+\\Mac\Home\Desktop\Conestoga College\Tip.V2\Tip.V2\bin\Debug\Tip.V2.exe
+\\Mac\Home\Desktop\Conestoga College\Tip.V2\Tip.V2\bin\Debug\Tip.V2.pdb
+\\Mac\Home\Desktop\Conestoga College\Tip.V2\Tip.V2\obj\Debug\Tip.V2.csproj.AssemblyReference.cache
+\\Mac\Home\Desktop\Conestoga College\Tip.V2\Tip.V2\obj\Debug\Tip.V2.csproj.SuggestedBindingRedirects.cache
+\\Mac\Home\Desktop\Conestoga College\Tip.V2\Tip.V2\obj\Debug\Tip.V2.tip.resources
+\\Mac\Home\Desktop\Conestoga College\Tip.V2\Tip.V2\obj\Debug\Tip.V2.Properties.Resources.resources
+\\Mac\Home\Desktop\Conestoga College\Tip.V2\Tip.V2\obj\Debug\Tip.V2.csproj.GenerateResource.cache
+\\Mac\Home\Desktop\Conestoga College\Tip.V2\Tip.V2\obj\Debug\Tip.V2.csproj.CoreCompileInputs.cache
+\\Mac\Home\Desktop\Conestoga College\Tip.V2\Tip.V2\obj\Debug\Tip.V2.exe
+\\Mac\Home\Desktop\Conestoga College\Tip.V2\Tip.V2\obj\Debug\Tip.V2.pdb
+\\Mac\Home\Desktop\Conestoga\Tip.V2\Tip.V2\bin\Debug\Tip.V2.exe.config
+\\Mac\Home\Desktop\Conestoga\Tip.V2\Tip.V2\bin\Debug\Tip.V2.exe
+\\Mac\Home\Desktop\Conestoga\Tip.V2\Tip.V2\bin\Debug\Tip.V2.pdb
+\\Mac\Home\Desktop\Conestoga\Tip.V2\Tip.V2\obj\Debug\Tip.V2.csproj.AssemblyReference.cache
+\\Mac\Home\Desktop\Conestoga\Tip.V2\Tip.V2\obj\Debug\Tip.V2.csproj.SuggestedBindingRedirects.cache
+\\Mac\Home\Desktop\Conestoga\Tip.V2\Tip.V2\obj\Debug\Tip.V2.tip.resources
+\\Mac\Home\Desktop\Conestoga\Tip.V2\Tip.V2\obj\Debug\Tip.V2.Properties.Resources.resources
+\\Mac\Home\Desktop\Conestoga\Tip.V2\Tip.V2\obj\Debug\Tip.V2.csproj.GenerateResource.cache
+\\Mac\Home\Desktop\Conestoga\Tip.V2\Tip.V2\obj\Debug\Tip.V2.csproj.CoreCompileInputs.cache
+\\Mac\Home\Desktop\Conestoga\Tip.V2\Tip.V2\obj\Debug\Tip.V2.exe
+\\Mac\Home\Desktop\Conestoga\Tip.V2\Tip.V2\obj\Debug\Tip.V2.pdb
