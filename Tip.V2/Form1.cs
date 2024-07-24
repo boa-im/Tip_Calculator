@@ -12,9 +12,20 @@ namespace Tip.V2
 {
     public partial class tip : Form
     {
-        public double cash1Total = 0, card1Total = 0, cash2Total = 0, card2Total = 0, cash3Total = 0, card3Total = 0, p1Total = 0, p2Total = 0, p3Total = 0, KitchenTotal = 0;
+        // Please modify card tax persent. If servers can take 95% of the card tip, TaxPercent needs to be 5.
+        public int TaxPercent = 5;
 
-        public double c1hrs = 11, c2hrs = 0, c3hrs = 0, c4hrs = 0, c5hrs = 0, c6hrs = 0, dwTip, totalHours;
+        // Please modify the ratio servers and kitchen tip.
+        // If servers can take 60& of total tips and kitchen workers take 40%, ServerTipPercent and KitchenTipPercent need to be 60, 40 each.
+        public int ServerTipPercent = 60;
+        public int KitchenTipPercent = 40;
+
+
+
+
+
+        public double cash1Total = 0, card1Total = 0, cash2Total = 0, card2Total = 0, cash3Total = 0, card3Total = 0, cash4Total = 0, card4Total = 0, p1Total = 0, p2Total = 0, p3Total = 0, p4Total = 0, KitchenTotal = 0, sum = 0;
+        public double c1hrs = 11, c2hrs = 0, c3hrs = 0, c4hrs = 0, c5hrs = 0, c6hrs = 0, dwTip = 0, totalHours = 0;
 
 
         public tip()
@@ -29,11 +40,11 @@ namespace Tip.V2
                 if (p1cash.Text != "" && p1cash.Text != null)
                 {
                     cash1Total = Convert.ToDouble(p1cash.Text);
-                    card1Total = Convert.ToDouble(p1card.Text) * 0.95;
-                    p1tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round((cash1Total + card1Total) * 0.6 / Convert.ToDouble(p1nos.Text), 2)));
+                    card1Total = Convert.ToDouble(p1card.Text) * (100-TaxPercent)/100;
+                    p1tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round((cash1Total + card1Total) * ServerTipPercent/100 / Convert.ToDouble(p1nos.Text), 2)));
 
                     p1Total = cash1Total + card1Total;
-                    KitchenTotal = (p1Total + p2Total + p3Total) * 0.4;
+                    KitchenTotal = (p1Total + p2Total + p3Total + p4Total) * KitchenTipPercent/100;
                     calculateKitchen();
                 }
             }
@@ -50,16 +61,16 @@ namespace Tip.V2
                 if (p1card.Text != "" && p1card.Text != null)
                 {
                     cash1Total = Convert.ToDouble(p1cash.Text);
-                    card1Total = Convert.ToDouble(p1card.Text) * 0.95;
-                    p1tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round((cash1Total + card1Total) * 0.6 / Convert.ToDouble(p1nos.Text), 2)));
+                    card1Total = Convert.ToDouble(p1card.Text) * (100-TaxPercent)/100;
+                    p1tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round((cash1Total + card1Total) * ServerTipPercent/100 / Convert.ToDouble(p1nos.Text), 2)));
 
                     p1Total = cash1Total + card1Total;
 
                     if(p2Total != 0)
                     {
                         cash2Total = Convert.ToDouble(p2cash.Text);
-                        card2Total = (Convert.ToDouble(p2card.Text) - Convert.ToDouble(p1card.Text)) * 0.95;
-                        p2tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round((cash2Total + card2Total) * 0.6 / Convert.ToDouble(p2nos.Text), 2)));
+                        card2Total = (Convert.ToDouble(p2card.Text) - Convert.ToDouble(p1card.Text)) * (100-TaxPercent)/100;
+                        p2tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round((cash2Total + card2Total) * ServerTipPercent/100 / Convert.ToDouble(p2nos.Text), 2)));
 
                         p2Total = cash2Total + card2Total;
                     }
@@ -67,13 +78,22 @@ namespace Tip.V2
                     if(p3Total != 0)
                     {
                         cash3Total = Convert.ToDouble(p3cash.Text);
-                        card3Total = (Convert.ToDouble(p3card.Text) - Convert.ToDouble(p2card.Text)) * 0.95;
-                        p3tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round((cash3Total + card3Total) * 0.6 / Convert.ToDouble(p3nos.Text), 2)));
+                        card3Total = (Convert.ToDouble(p3card.Text) - Convert.ToDouble(p2card.Text)) * (100-TaxPercent)/100;
+                        p3tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round((cash3Total + card3Total) * ServerTipPercent/100 / Convert.ToDouble(p3nos.Text), 2)));
 
                         p3Total = cash3Total + card3Total;
                     }
 
-                    KitchenTotal = (p1Total + p2Total + p3Total) * 0.4;
+                    if (p4Total != 0)
+                    {
+                        cash4Total = Convert.ToDouble(p4cash.Text);
+                        card4Total = (Convert.ToDouble(p4card.Text) - Convert.ToDouble(p3card.Text)) * (100-TaxPercent)/100;
+                        p4tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round((cash4Total + card4Total) * ServerTipPercent/100 / Convert.ToDouble(p4nos.Text), 2)));
+
+                        p4Total = cash4Total + card4Total;
+                    }
+
+                    KitchenTotal = (p1Total + p2Total + p3Total + p4Total) * KitchenTipPercent/100;
                     calculateKitchen();
                 }
             }
@@ -90,11 +110,11 @@ namespace Tip.V2
                 p1Total = cash1Total + card1Total;
 
                 if (p1nos.Text == "" || p1nos.Text == null)
-                    p1tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round(p1Total * 0.6, 2)));
+                    p1tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round(p1Total * ServerTipPercent/100, 2)));
                 else
-                    p1tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round(p1Total * 0.6 / Convert.ToDouble(p1nos.Text), 2)));
+                    p1tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round(p1Total * ServerTipPercent/100 / Convert.ToDouble(p1nos.Text), 2)));
 
-                KitchenTotal = (p1Total + p2Total + p3Total) * 0.4;
+                KitchenTotal = (p1Total + p2Total + p3Total + p4Total) * KitchenTipPercent/100;
                 calculateKitchen();
             }
             catch (Exception ex)
@@ -107,14 +127,15 @@ namespace Tip.V2
         {
             try
             {
+
                 if (p2cash.Text != "" && p2cash.Text != null)
                 {
                     cash2Total = Convert.ToDouble(p2cash.Text);
-                    card2Total = (Convert.ToDouble(p2card.Text) - Convert.ToDouble(p1card.Text)) * 0.95;
-                    p2tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round((cash2Total + card2Total) * 0.6 / Convert.ToDouble(p2nos.Text), 2)));
+                    card2Total = (Convert.ToDouble(p2card.Text) - Convert.ToDouble(p1card.Text)) * (100-TaxPercent)/100;
+                    p2tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round((cash2Total + card2Total) * ServerTipPercent/100 / Convert.ToDouble(p2nos.Text), 2)));
 
                     p2Total = cash2Total + card2Total;
-                    KitchenTotal = (p1Total + p2Total + p3Total) * 0.4;
+                    KitchenTotal = (p1Total + p2Total + p3Total + p4Total) * KitchenTipPercent/100;
                     calculateKitchen();
                 }
             }
@@ -128,21 +149,30 @@ namespace Tip.V2
                 if (p2card.Text != "" && p2card.Text != null)
                 {
                     cash2Total = Convert.ToDouble(p2cash.Text);
-                    card2Total = (Convert.ToDouble(p2card.Text) - Convert.ToDouble(p1card.Text)) * 0.95;
-                    p2tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round((cash2Total + card2Total) * 0.6 / Convert.ToDouble(p2nos.Text), 2)));
+                    card2Total = (Convert.ToDouble(p2card.Text) - Convert.ToDouble(p1card.Text)) * (100-TaxPercent)/100;
+                    p2tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round((cash2Total + card2Total) * ServerTipPercent/100 / Convert.ToDouble(p2nos.Text), 2)));
 
                     p2Total = cash2Total + card2Total;
 
                     if(p3Total != 0)
                     {
                         cash3Total = Convert.ToDouble(p3cash.Text);
-                        card3Total = (Convert.ToDouble(p3card.Text) - Convert.ToDouble(p2card.Text)) * 0.95;
-                        p3tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round((cash3Total + card3Total) * 0.6 / Convert.ToDouble(p3nos.Text), 2)));
+                        card3Total = (Convert.ToDouble(p3card.Text) - Convert.ToDouble(p2card.Text)) * (100-TaxPercent)/100;
+                        p3tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round((cash3Total + card3Total) * ServerTipPercent/100 / Convert.ToDouble(p3nos.Text), 2)));
 
                         p3Total = cash3Total + card3Total;
                     }
 
-                    KitchenTotal = (p1Total + p2Total + p3Total) * 0.4;
+                    if (p4Total != 0)
+                    {
+                        cash4Total = Convert.ToDouble(p4cash.Text);
+                        card4Total = (Convert.ToDouble(p4card.Text) - Convert.ToDouble(p3card.Text)) * (100-TaxPercent)/100;
+                        p4tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round((cash4Total + card4Total) * ServerTipPercent/100 / Convert.ToDouble(p4nos.Text), 2)));
+
+                        p4Total = cash4Total + card4Total;
+                    }
+
+                    KitchenTotal = (p1Total + p2Total + p3Total + p4Total) * KitchenTipPercent/100;
                     calculateKitchen();
                 }
             }
@@ -159,11 +189,11 @@ namespace Tip.V2
                 p2Total = cash2Total + card2Total;
 
                 if (p2nos.Text == "" || p2nos.Text == null)
-                    p2tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round(p2Total * 0.6, 2)));
+                    p2tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round(p2Total * ServerTipPercent/100, 2)));
                 else
-                    p2tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round(p2Total * 0.6 / Convert.ToDouble(p2nos.Text), 2)));
+                    p2tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round(p2Total * ServerTipPercent/100 / Convert.ToDouble(p2nos.Text), 2)));
 
-                KitchenTotal = (p1Total + p2Total + p3Total) * 0.4;
+                KitchenTotal = (p1Total + p2Total + p3Total + p4Total) * KitchenTipPercent/100;
                 calculateKitchen();
             }
             catch (Exception ex)
@@ -179,11 +209,11 @@ namespace Tip.V2
                 if (p3cash.Text != "" && p3cash.Text != null)
                 {
                     cash3Total = Convert.ToDouble(p3cash.Text);
-                    card3Total = (Convert.ToDouble(p3card.Text) - Convert.ToDouble(p2card.Text)) * 0.95;
-                    p3tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round((cash3Total + card3Total) * 0.6 / Convert.ToDouble(p3nos.Text), 2)));
+                    card3Total = (Convert.ToDouble(p3card.Text) - Convert.ToDouble(p2card.Text)) * (100-TaxPercent)/100;
+                    p3tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round((cash3Total + card3Total) * ServerTipPercent/100 / Convert.ToDouble(p3nos.Text), 2)));
 
                     p3Total = cash3Total + card3Total;
-                    KitchenTotal = (p1Total + p2Total + p3Total) * 0.4;
+                    KitchenTotal = (p1Total + p2Total + p3Total + p4Total) * KitchenTipPercent/100;
                     calculateKitchen();
                 }
             }
@@ -197,11 +227,21 @@ namespace Tip.V2
                 if (p3card.Text != "" && p3card.Text != null)
                 {
                     cash3Total = Convert.ToDouble(p3cash.Text);
-                    card3Total = (Convert.ToDouble(p3card.Text) - Convert.ToDouble(p2card.Text)) * 0.95;
-                    p3tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round((cash3Total + card3Total) * 0.6 / Convert.ToDouble(p3nos.Text), 2)));
+                    card3Total = (Convert.ToDouble(p3card.Text) - Convert.ToDouble(p2card.Text)) * (100-TaxPercent)/100;
+                    p3tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round((cash3Total + card3Total) * ServerTipPercent/100 / Convert.ToDouble(p3nos.Text), 2)));
 
                     p3Total = cash3Total + card3Total;
-                    KitchenTotal = (p1Total + p2Total + p3Total) * 0.4;
+
+                    if (p4Total != 0)
+                    {
+                        cash4Total = Convert.ToDouble(p4cash.Text);
+                        card4Total = (Convert.ToDouble(p4card.Text) - Convert.ToDouble(p3card.Text)) * (100-TaxPercent)/100;
+                        p4tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round((cash4Total + card4Total) * ServerTipPercent/100 / Convert.ToDouble(p4nos.Text), 2)));
+
+                        p4Total = cash4Total + card4Total;
+                    }
+
+                    KitchenTotal = (p1Total + p2Total + p3Total + p4Total) * KitchenTipPercent/100;
                     calculateKitchen();
                 }
             }
@@ -215,11 +255,67 @@ namespace Tip.V2
                 p3Total = cash3Total + card3Total;
 
                 if (p3nos.Text == "" || p3nos.Text == null)
-                    p3tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round(p3Total * 0.6, 2)));
+                    p3tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round(p3Total * ServerTipPercent/100, 2)));
                 else
-                    p3tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round(p3Total * 0.6 / Convert.ToDouble(p3nos.Text), 2)));
+                    p3tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round(p3Total * ServerTipPercent/100 / Convert.ToDouble(p3nos.Text), 2)));
 
-                KitchenTotal = (p1Total + p2Total + p3Total) * 0.4;
+                KitchenTotal = (p1Total + p2Total + p3Total + p4Total) * KitchenTipPercent/100;
+                calculateKitchen();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Please enter only number.");
+            }
+        }
+
+        private void p4cash_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (p4card.Text != "" && p4card.Text != null)
+                {
+                    cash4Total = Convert.ToDouble(p4cash.Text);
+                    card4Total = (Convert.ToDouble(p4card.Text) - Convert.ToDouble(p3card.Text)) * (100-TaxPercent)/100;
+                    p4tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round((cash4Total + card4Total) * ServerTipPercent/100 / Convert.ToDouble(p4nos.Text), 2)));
+
+                    p4Total = cash4Total + card4Total;
+                    KitchenTotal = (p1Total + p2Total + p3Total + p4Total) * KitchenTipPercent/100;
+                    calculateKitchen();
+                }
+            }
+            catch (Exception ex) { MessageBox.Show("Please enter only number."); }
+        }
+
+        private void p4card_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (p4card.Text != "" && p4card.Text != null)
+                {
+                    cash4Total = Convert.ToDouble(p4cash.Text);
+                    card4Total = (Convert.ToDouble(p4card.Text) - Convert.ToDouble(p3card.Text)) * (100-TaxPercent)/100;
+                    p4tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round((cash4Total + card4Total) * ServerTipPercent/100 / Convert.ToDouble(p4nos.Text), 2)));
+
+                    p4Total = cash4Total + card4Total;
+                    KitchenTotal = (p1Total + p2Total + p3Total + p4Total) * KitchenTipPercent/100;
+                    calculateKitchen();
+                }
+            }
+            catch (Exception ex) { MessageBox.Show("Please enter only number."); }
+        }
+
+        private void p4nos_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                p4Total = cash4Total + card4Total;
+
+                if (p4nos.Text == "" || p4nos.Text == null)
+                    p4tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round(p4Total * ServerTipPercent/100, 2)));
+                else
+                    p4tip.Text = String.Format("{0:0.00}", RoundNumber(Math.Round(p4Total * ServerTipPercent/100 / Convert.ToDouble(p4nos.Text), 2)));
+
+                KitchenTotal = (p1Total + p2Total + p3Total + p4Total) * KitchenTipPercent/100;
                 calculateKitchen();
             }
             catch (Exception ex)
@@ -378,29 +474,38 @@ namespace Tip.V2
             return Convert.ToDouble(tip) /100;
         }
 
-        private void btn1plus2_Click(object sender, EventArgs e)
+        private void btnP1_Click(object sender, EventArgs e)
         {
             double part1 = Convert.ToDouble(p1tip.Text);
-            double part2 = Convert.ToDouble(p2tip.Text);
-
-            txtSum.Text = String.Format("{0:0.00}", part1 + part2);
+            sum += part1;
+            txtSum.Text = String.Format("{0:0.00}", sum);
         }
 
-        private void btn2plus3_Click(object sender, EventArgs e)
+        private void btnP2_Click(object sender, EventArgs e)
         {
             double part2 = Convert.ToDouble(p2tip.Text);
-            double part3 = Convert.ToDouble(p3tip.Text);
-
-            txtSum.Text = String.Format("{0:0.00}", part2 + part3);
+            sum += part2;
+            txtSum.Text = String.Format("{0:0.00}", sum);
         }
 
-        private void btn1plus2plus3_Click(object sender, EventArgs e)
+        private void btnP3_Click(object sender, EventArgs e)
         {
-            double part1 = Convert.ToDouble(p1tip.Text);
-            double part2 = Convert.ToDouble(p2tip.Text);
             double part3 = Convert.ToDouble(p3tip.Text);
+            sum += part3;
+            txtSum.Text = String.Format("{0:0.00}", sum);
+        }
 
-            txtSum.Text = String.Format("{0:0.00}", part1 + part2 + part3);
+        private void btnP4_Click(object sender, EventArgs e)
+        {
+            double part4 = Convert.ToDouble(p4tip.Text);
+            sum += part4;
+            txtSum.Text = String.Format("{0:0.00}", sum);
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            sum = 0;
+            txtSum.Text = "0";
         }
     }
 }
