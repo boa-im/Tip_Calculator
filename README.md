@@ -19,4 +19,4 @@ If you run or download the program, you can see this screen.<br>
 <img src="img/form.png" width="500px">
 
 <h3>Demo</h3>
-You can watch the demo video here!  <a href="https://drive.google.com/file/d/115LefJ6f5BESvEeZrR3p-vLnDd_b-H5q/view">Click here!</a>
+You can watch the demo video here!  <a href="https://drive.google.com/file/d/115LefJ6f5BESvEeZrR3p-vLnDd_b-H5q/view?usp=sharing">Click here!</a>
